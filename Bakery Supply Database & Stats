@@ -1,0 +1,48 @@
+-Create a bakery supply database:
+create table
+bakery_supply
+(id integer primary key, 
+item text, 
+cost integer, 
+aisle integer,
+edible text);
+
+insert into bakery_supply values (1, "Pans", 5, 3, "N");
+insert into bakery_supply values (2, "Whisk", 3, 4, "N");
+insert into bakery_supply values (3, "Piping bags", 4, 4, "N");
+insert into bakery_supply values (4, "Piping tips", 1, 4, "N");
+insert into bakery_supply values (5, "Bowls", 5, 3, "N");
+insert into bakery_supply values (6, "Spatula", 2, 3, "N");
+insert into bakery_supply values (7, "Mixer", 150, 3, "N");
+insert into bakery_supply values (8, "Flour", 2, 1, "Y");
+insert into bakery_supply values (9, "Sugar", 3, 1, "Y");
+insert into bakery_supply values (10, "Vanilla extract", 6, 1, "Y");
+insert into bakery_supply values (11, "Baking soda", 3, 1, "Y");
+insert into bakery_supply values (12, "Baking soda", 3, 1, "Y");
+insert into bakery_supply values (13, "Eggs", 5, 1, "Y");
+insert into bakery_supply values (14, "Merengue Powder", 8, 1, "Y");
+insert into bakery_supply values (15, "Food coloring", 4, 1, "Y"); 
+
+-Display all database information:
+select * from bakery_supply;
+
+-Display all items in aisle 3:
+select * from bakery_supply where aisle = 3 order by aisle; 
+
+-Display all items that cost less than 5 dollars:
+select * from bakery_supply where cost < 5 order by cost;
+
+-Display all items that are edible:
+select * from bakery_supply where edible = "Y" order by edible;
+
+-Display all items that are inedible:
+select * from bakery_supply where edible= "N" order by edible; 
+
+-Display the cost of all items:
+select SUM(cost) from bakery_supply;
+
+-Display the cost of the most expensive item:
+select MAX(cost) from bakery_supply;
+
+-Display all items in order by aisle number:
+select * from bakery_supply order by aisle;
