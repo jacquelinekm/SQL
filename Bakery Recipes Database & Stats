@@ -1,0 +1,111 @@
+-Created a table for bakery recipes
+CREATE TABLE bakery_recipes
+
+(rating INTEGER PRIMARY KEY,
+name TEXT,
+quantity_made INTEGER,
+bake_time INTEGER,
+ingredient_amount INTEGER,
+oven_degree INTEGER,
+skill_level TEXT,
+decorations TEXT,
+calories INTEGER,
+cost INTEGER);
+
+INSERT INTO bakery_recipes(rating, name, quantity_made, bake_time, ingredient_amount, oven_degree, skill_level, decorations, calories, cost)
+VALUES
+    (1, "chocolate_chip_cookies", 12, 12, 8, 375, "beginner", "N", 100, 10),
+    (2, "cake", 1, 20, 11, 350, "advanced", "Y", 120, 20),
+    (3, "cupcakes", 12, 15, 11, 350, "beginner", "Y", 120, 20),
+    (4, "pastries", 6, 25, 13, 325, "advanced", "N", 200, 20),
+    (5, "rainbow_cookies", 24, 30, 9, 325, "advanced", "N", 150, 30),
+    (6, "cake_pops", 24, 15, 15, 350, "beginner", "Y", 100, 15),
+    (7, "brownies", 12, 25, 13, 375, "beginner", "N", 150, 10),
+    (8, "pie", 1, 45, 11, 350, "beginner", "N", 165, 20), 
+    (9, "cinnamon_buns", 6, 35, 10, 350, "advanced", "N", 200, 15),
+    (10, "banana_bread", 1, 25, 11, 375, "beginner", "N", 125, 16);
+
+-Showing all data from bakery recipes table:
+SELECT * FROM bakery_recipes;
+
+-Showing the average baking time for all recipes:
+SELECT AVG(bake_time)
+FROM bakery_recipes; 
+
+-Showing the maximum amount of ingredients in the recipes with less than or equal to 10:
+SELECT MAX(ingredient_amount)
+FROM bakery_recipes
+WHERE ingredient_amount <= 10;
+
+-Showing the minumum oven degrees that are less than or equal to 350:
+SELECT MIN(oven_degree)
+FROM bakery_recipes
+WHERE oven_degree <=350;
+
+-Showing recipes that are greater than 100 calories & listing them as a higher calorie recipe: 
+SELECT name, calories AS higher_calorie
+FROM bakery_recipes
+WHERE calories > 100
+GROUP BY calories 
+HAVING calories > 100
+ORDER BY calories; 
+
+-Showing recipes that are lower than 10 dollars & listing them as lower cost recipes:
+SELECT name, cost AS lower_cost
+FROM bakery_recipes
+WHERE cost <= 10
+GROUP BY cost
+HAVING cost <= 10
+ORDER BY cost; 
+
+-Breaking the recipes into two groups of long & quick recipes based on bake time being more or less than 15 minutes:
+SELECT name, bake_time,
+CASE
+WHEN bake_time <= 15 THEN "quick_recipe"
+WHEN bake_time > 15 THEN "long_recipe"
+ELSE "average"
+END AS "quick/long_recipe"
+FROM bakery_recipes
+ORDER BY bake_time asc;
+
+-Breaking the recipes into two groups of easy & hard recipes based on skill level being advanced or beginner:
+SELECT name, skill_level, 
+CASE
+WHEN skill_level = "beginner" THEN "easy"
+WHEN skill_level = "advanced" THEN "hard"
+ELSE "average"
+END AS "easy/hard_recipe"
+FROM bakery_recipes
+ORDER BY skill_level desc;
+
+-Breaking the recipes into two groups of having a small crowd or large crowd to bake for, based on quantity made being more or less than 6 people:
+SELECT name, quantity_made,
+CASE
+WHEN quantity_made <= 6 THEN "small_crowd"
+WHEN quantity_made >= 6 THEN "large_crowd"
+ELSE "other"
+END AS "crowd_size"
+FROM bakery_recipes
+ORDER BY quantity_made;
+
+-Showing which recipes are less than or equal to 120 calories and cost less than or equal to 15 dollars:
+SELECT name, calories, cost
+FROM bakery_recipes
+WHERE calories <= 120 AND cost <=15;
+
+-Showing which recipes require a decoration and a beginner skill level:
+SELECT name, decorations, skill_level
+FROM bakery_recipes 
+WHERE decorations = "N" AND skill_level = "beginner";
+
+-Showing which recipes have a 350 degree temperature or a bake time of less than or equal to 15 minutes:
+SELECT name, oven_degree, bake_time
+FROM bakery_recipes
+WHERE oven_degree = 350 OR bake_time <= 15
+ORDER BY bake_time;
+
+-Showing which recipes have less than 10 ingredients or cost less than 20 dollars:
+SELECT name, ingredient_amount, cost
+FROM bakery_recipes
+WHERE ingredient_amount < 10 OR cost < 20
+ORDER BY cost;
