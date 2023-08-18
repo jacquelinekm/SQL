@@ -23,7 +23,17 @@ VALUES
     (7, "brownies", 12, 25, 13, 375, "beginner", "N", 150, 10),
     (8, "pie", 1, 45, 11, 350, "beginner", "N", 165, 20), 
     (9, "cinnamon_buns", 6, 35, 10, 350, "advanced", "N", 200, 15),
-    (10, "banana_bread", 1, 25, 11, 375, "beginner", "N", 125, 16);
+    (10, "banana_bread", 1, 25, 11, 375, "beginner", "N", 125, 16),
+    (11, "cheesecake", 1, 60, 10, 375, "advanced", "N", 250, 30),
+    (12, "donuts", 12, 8, 6, 325, "beginner", "N", 125, 10),
+    (13, "muffins", 12, 20, 10, 350, "beginner", "N", 150, 15),
+    (14, "hand_pies", 16, 25, 13, 325, "advanced", "N", 200, 20),
+    (15, "cobbler", 1, 20, 13, 325, "beginner", "N", 150, 30),
+    (16, "tart", 2, 20, 9, 325, "beginner", "N", 150, 25),
+    (17, "biscuits", 8, 30, 10, 350, "advanced", "N", 145, 20),
+    (18, "rolls", 12, 20, 8, 350, "advanced", "N", 130, 15),
+    (19, "bagels", 12, 15, 8, 400, "advanced", "N", 200, 20),
+    (20, "bread", 1, 15, 8, 400, "beginner", "N", 150, 15);
 
 -Showing all data from bakery recipes table:
 SELECT * FROM bakery_recipes;
