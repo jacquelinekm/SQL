@@ -1,0 +1,84 @@
+-The SQL written below is based off of multiple created tables:
+
+CREATE TABLE famous_bands
+(id INTEGER,
+name TEXT,
+state TEXT,
+albums INTEGER);
+
+INSERT INTO famous_bands (id, name, state, albums) 
+VALUES
+(1, "Fall Out Boy", "IL", 13),
+(2, "A Day to Remember", "FL", 9),
+(3, "Citizen", "MI", 6),
+(4, "Balance and Composure", "PA", 4);
+
+CREATE TABLE top_songs
+(song_id INTEGER,
+title TEXT,
+year INTEGER);
+
+INSERT INTO top_songs (song_id, title, year)
+VALUES
+(1, "Sugar We're Going Down", 2005),
+(2, "If it Means a Lot to You", 2009),
+(3, "Sleep", 2013),
+(4, "Tiny Raindrop", 2013);
+
+CREATE TABLE similar_sound
+(band_id INTEGER,
+similar_band_id INTEGER);
+
+INSERT INTO similar_sound (band_id, similar_band_id)
+VALUES
+(1, 2),
+(3, 4);
+
+CREATE TABLE misc_facts 
+(band_id INTEGER, 
+still_together INTEGER, 
+merchandise_sold INTEGER, 
+listeners INTEGER,
+currently_touring INTEGER,
+all_original_members INTEGER);
+
+INSERT INTO misc_facts (band_id, still_together, merchandise_sold, listeners, currently_touring, all_original_members)
+VALUES
+(1, 1, 500000, 5.4, 1, 1),
+(2, 1, 400000, 4.8, 1, 0),
+(3, 1, 250000, 3.2, 0, 1),
+(4, 1, 300000, 3.1, 0, 1);
+
+-Showing all famous bands, their top songs, and what year their top songs came out from 2 separate tables:
+SELECT famous_bands.name, top_songs.title, top_songs.year
+FROM famous_bands
+JOIN top_songs
+ON famous_bands.id = top_songs.song_id;
+
+-Showing which bands have a similar sound from 2 separate tables using multiple joins:
+SELECT a.name, b.name AS similar_band_name
+FROM similar_sound
+JOIN famous_bands a
+ON similar_sound.band_id = a.id
+JOIN famous_bands b
+ON similar_sound.similar_band_id = b.id;
+
+-Showing the name of each band, how many albums they’ve released, and what their top song is from 2 separate tables:
+SELECT famous_bands.name, famous_bands.albums, top_songs.title
+FROM famous_bands
+JOIN top_songs
+ON famous_bands.id = top_songs.song_id;
+
+-Showing which bands are currently touring and in what state they’re from, using 2 separate tables:
+SELECT famous_bands.name, famous_bands.state, misc_facts.currently_touring
+FROM famous_bands
+JOIN misc_facts
+ON famous_bands.id = misc_facts.band_id
+
+-Showing the band name, top song, and how many listeners they have, using 3 separate tables:
+SELECT famous_bands.name, top_songs.title, misc_facts.listeners
+FROM famous_bands
+JOIN top_songs
+ON famous_bands.id = top_songs.song_id
+JOIN misc_facts
+ON famous_bands.id = misc_facts.band_id;
