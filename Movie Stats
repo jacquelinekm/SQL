@@ -1,0 +1,81 @@
+-The following SQL was written based on a downloaded dataset:
+https://www.kaggle.com/datasets/shahjhanalam/movie-data-analytics-dataset
+
+-Show movie titles that were made in 2015:
+
+SELECT Title
+FROM movie.IMDB
+WHERE Title LIKE '%(2015)%';
+
+-Which movies have a rating above 8? (Show highest to lowest)
+
+SELECT Title, Rating
+FROM movie.IMDB
+WHERE Rating >= 8
+ORDER BY Rating desc;
+
+-Which movies have a budget of at most 2 million and a rating of 7.5 or higher? (Show lowest budget to highest)
+
+SELECT Title, Budget, Rating
+FROM movie.IMDB
+WHERE Budget <= 2000000
+AND Rating >= 7.5
+ORDER BY Budget asc;
+
+-What is the average rating for movies with a rating above 8?
+
+SELECT ROUND(AVG(Rating), 2) AS Average_Rating
+FROM movie.IMDB
+WHERE Rating >= 8;
+
+-Show all info for THe Hobbit movies:
+
+SELECT *
+FROM movie.IMDB
+WHERE Title LIKE 'The Hobbit%';
+
+-What are the top 5 movies with the highest Worldwide earning?
+
+SELECT i.Title, e.Worldwide
+FROM movie.earning e
+LEFT JOIN movie.IMDB i
+ON e.Movie_id = i.Movie_id
+ORDER BY e.Worldwide desc
+LIMIT 5;
+
+-Show all genres and how many movies are listed in them:
+
+SELECT g.genre, COUNT(i.title) AS movies
+FROM movie.IMDB i
+LEFT JOIN movie.genre g
+ON i.Movie_id = g.Movie_id
+WHERE length(g.genre) >= 1
+GROUP BY g.genre;
+
+-Show movie title, worldwide earnings, and genres for the top 10 highest earning movies:
+
+SELECT i.Title, e.Worldwide AS World_Wide_Earnings, g.genre
+FROM movie.IMDB i
+JOIN movie.earning e
+ON i.Movie_id = e.Movie_id
+JOIN movie.genre g
+ON e.Movie_id = g.Movie_id
+GROUP BY Title
+ORDER BY e.Worldwide desc
+LIMIT 10;
+
+-Show all movie titles with a comedy genre:
+
+SELECT i.Title
+FROM movie.IMDB i
+JOIN movie.genre g
+ON i.Movie_id = g.Movie_id
+WHERE g.genre = 'Comedy';
+
+-What movies have a run time of 2 hours or less and have a rating of 7 and higher?
+
+SELECT Title, Runtime, Rating
+FROM movie.IMDB
+WHERE Runtime <= '120 min'
+AND Rating >= 7
+AND length(Runtime) >= 1;
