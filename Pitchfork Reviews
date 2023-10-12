@@ -1,0 +1,74 @@
+-The below SQL was written based on a databased downloaded from Kaggle:
+https://www.kaggle.com/datasets/nolanbconaway/pitchfork-data
+
+-What artists were reviewed in 2017?
+
+SELECT artist
+FROM pitchfork.reviews
+WHERE pub_year = 2017;
+
+-How many reviews are there in total?
+
+SELECT COUNT(reviewid) AS Total_Reviews
+FROM pitchfork.reviews;
+
+-What artists are with Empire label?
+
+SELECT a.artist
+FROM pitchfork.artists a
+JOIN pitchfork.labels l
+ON a.reviewid = l.reviewid
+WHERE l.label = 'empire';
+
+-What artists are under the rock & metal genres?
+
+SELECT a.artist, g.genre
+FROM pitchfork.artists a
+JOIN pitchfork.genres g
+ON a.reviewid = g.reviewid
+WHERE g.genre = 'rock'
+OR g.genre = 'metal'
+ORDER BY g.genre;
+
+-Who are the top 5 artists based on score & what are their genres?
+
+SELECT r.artist, g.genre
+FROM pitchfork.reviews r
+JOIN pitchfork.genres g
+ON r.reviewid = g.reviewid
+ORDER BY r.score desc
+LIMIT 5;
+
+-Show the top 10 artist reviews based on score and their content:
+
+SELECT r.artist, c.content
+FROM pitchfork.reviews r
+JOIN pitchfork.content c
+ON r.reviewid = c.reviewid
+ORDER BY r.score desc
+LIMIT 10;
+
+-Which artists made it into the best new music review?
+
+SELECT artist
+FROM pitchfork.reviews
+WHERE best_new_music = 1
+GROUP BY artist;
+
+-Show the artist, title of review, and review author for all reviewed in 2016:
+
+SELECT artist, title, author
+FROM pitchfork.reviews
+WHERE pub_year = 2016;
+
+Show all info for reviews for the month of april in 2016:
+
+SELECT * 
+FROM pitchfork.reviews
+WHERE pub_date BETWEEN '2016-04-01' AND '2016-04-30';
+
+Show artist, title, author, and publication year for the  author type assistant editor:
+
+SELECT artist, title, author, pub_year
+FROM pitchfork.reviews
+WHERE author_type = 'assistant editor';
